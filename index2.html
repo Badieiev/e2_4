@@ -1,0 +1,75 @@
+<html>
+<header>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+</header>
+
+<body>
+    <style>
+        table td {
+            padding: 20px;
+            border: 1px solid black;
+        }
+
+        .white {
+            background-color: white;
+        }
+        .red {
+            background-color: red;
+        }
+    </style>
+
+    <form>
+        <div>
+            <label for="uname">Cols: </label>
+            <input type="text" value="" id="cols">
+
+            <label for="uname">Rows: </label>
+            <input type="text" value="" id="rows">
+        </div>
+        <div><input id="button" type="button" value="create table"></div>
+    </form>
+
+    <div id="container"></div>
+
+    <script>
+        function changeColor(event) {
+            if (event.originalTarget.className === "red"){
+                event.originalTarget.className = "white";
+            }
+            else {
+                event.originalTarget.className = "red";
+            }
+        }
+
+        function createTable(event) {
+            var cols = document.getElementById("cols").value;
+            var rows = document.getElementById("rows").value;
+            var container = document.querySelector('#container');
+            container.addEventListener("click", changeColor, false);
+            var tables = document.getElementsByTagName('table');
+            if (tables.length>0){
+                tables[0].remove();
+            }
+            var table = document.createElement('table');
+
+            for (var i = 0; i < rows; i++) {
+                var tr = document.createElement('tr');
+
+                for (var j = 0; j < cols; j++) {
+                    var td = document.createElement('td');
+                    td.className = "white";
+                    td.innerText = (i+1)+""+(j+1);
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+            container.appendChild(table);
+        }
+       
+        var button = document.getElementById("button");
+        button.addEventListener("click", createTable);
+    </script>
+</body>
+
+</html>
